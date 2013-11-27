@@ -1,0 +1,13 @@
+<wsp:Policy wsu:Id="ReservationServiceBindingAsymmetricSAML2Policy"
+	xmlns:wsp="http://www.w3.org/ns/ws-policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+	xmlns:t="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+	xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+
+	<wsam:Addressing xmlns:wsp="http://www.w3.org/ns/ws-policy"
+		xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+		<wsp:Policy />
+	</wsam:Addressing>
+
+</wsp:Policy>
