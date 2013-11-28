@@ -27,14 +27,9 @@
 		id="CustomerServiceHTTP" address="http://localhost:9090/CustomerServicePort"
 		serviceName="customer:CustomerServiceService" endpointName="customer:CustomerServiceEndpoint"
 		implementor="com.example.customerservice.server.CustomerServiceImpl">
-		<jaxws:outInterceptors>
-			<bean class="com.example.customerservice.interceptors.DynamicPolicyOutInterceptor"/>
-		</jaxws:outInterceptors>
-		<jaxws:inInterceptors>
-			<bean class="com.example.customerservice.interceptors.DynamicPolicyInInterceptor"/>
-		</jaxws:inInterceptors>
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
+			<bean class="com.example.customerservice.interceptors.DynamicPolicyFeature" />
 		</jaxws:features>
 	</jaxws:endpoint>
 

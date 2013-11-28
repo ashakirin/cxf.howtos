@@ -38,12 +38,9 @@
 		endpointName="customer:CustomerServiceEndpoint"
 		address="http://localhost:9090/CustomerServicePort" 
 		serviceClass="com.example.customerservice.CustomerService">
-		<jaxws:outInterceptors>
-			<bean class="com.example.customerservice.interceptors.DynamicPolicyOutInterceptor"/>
-		</jaxws:outInterceptors>
-		<jaxws:inInterceptors>
-			<bean class="com.example.customerservice.interceptors.DynamicPolicyInInterceptor"/>
-		</jaxws:inInterceptors>
+		<jaxws:features>
+			<bean class="com.example.customerservice.interceptors.DynamicPolicyFeature" />
+		</jaxws:features>
 	</jaxws:client>
 	
 	<bean id="tester" class="com.example.customerservice.client.CustomerServiceTester">

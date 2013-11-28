@@ -21,8 +21,6 @@ package com.example.customerservice.client;
 
 import java.util.List;
 
-import junit.framework.Assert;
-
 import com.example.customerservice.Customer;
 import com.example.customerservice.CustomerService;
 import com.example.customerservice.NoSuchCustomerException;
@@ -47,18 +45,13 @@ public final class CustomerServiceTester {
         // a list of customers
         System.out.println("Sending request for customers named Smith");
         customers = customerService.getCustomersByName("Smith");
-        System.out.println("Response received");
-        Assert.assertEquals(2, customers.size());
-        Assert.assertEquals("Smith", customers.get(0).getName());
+        System.out.println("Response received, customers: " + customers);
         
         // Then we test for an unknown Customer name and expect the NoSuchCustomerException
         try {
             customers = customerService.getCustomersByName("None");
-            Assert.fail("We should get a NoSuchCustomerException here");
         } catch (NoSuchCustomerException e) {
             System.out.println(e.getMessage());
-            Assert.assertNotNull("FaultInfo must not be null", e.getFaultInfo());
-            Assert.assertEquals("None", e.getFaultInfo().getCustomerName());
             System.out.println("NoSuchCustomer exception was received as expected");
         }
         
