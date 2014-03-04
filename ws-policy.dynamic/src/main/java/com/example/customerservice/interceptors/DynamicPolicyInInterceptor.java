@@ -18,7 +18,7 @@ public class DynamicPolicyInInterceptor extends
 
 	@Override
 	public void handleMessage(SoapMessage msg) throws Fault {
-		Policy wsaPolicy = PolicyHelper.parsePolicy(msg, "/wsa-policy.xml");
+		Policy wsaPolicy = PolicyHelper.parsePolicy(msg, "/ut-policy.xml");
 		msg.put(PolicyConstants.POLICY_OVERRIDE, wsaPolicy);
 	}
 

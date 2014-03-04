@@ -19,26 +19,39 @@
 
 package com.example.customerservice.client;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+
+import javax.xml.ws.BindingProvider;
+
+import org.apache.cxf.Bus;
+import org.apache.cxf.ws.policy.PolicyBuilder;
+import org.apache.cxf.ws.policy.PolicyConstants;
+import org.apache.neethi.Policy;
 
 import com.example.customerservice.Customer;
 import com.example.customerservice.CustomerService;
 import com.example.customerservice.NoSuchCustomerException;
 
 public final class CustomerServiceTester {
+	
+    private Bus bus;
     
     // The CustomerService proxy will be injected either by spring or by a direct call to the setter 
-    CustomerService customerService;
+    private CustomerService customerService;
     
-    public CustomerService getCustomerService() {
-        return customerService;
-    }
-
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-    public void testCustomerService() throws NoSuchCustomerException {
+    public void setBus(Bus bus) {
+		this.bus = bus;
+	}
+
+	public void testCustomerService() throws NoSuchCustomerException {
+    	prepareDynamicPolicy();
+    	
         List<Customer> customers = null;
         
         // First we test the positive case where customers are found and we retreive
@@ -65,4 +78,16 @@ public final class CustomerServiceTester {
         System.out.println("All calls were successful");
     }
 
+    private void prepareDynamicPolicy() {
+    	try {
+			InputStream is = this.getClass().getResourceAsStream("/ut-policy.xml");
+			PolicyBuilder builder = bus.getExtension(org.apache.cxf.ws.policy.PolicyBuilder.class);
+			Policy wsSecuritypolicy = builder.getPolicy(is);
+
+			Map<String, Object> requestContext = ((BindingProvider) customerService).getRequestContext();
+			requestContext.put(PolicyConstants.POLICY_OVERRIDE, wsSecuritypolicy);
+		} catch (Exception e) {
+			throw new RuntimeException("Cannot parse policy: " + e.getMessage(), e);
+		}
+    }
 }
